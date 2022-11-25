@@ -90,7 +90,8 @@ class UKMstatistikk extends UKMNorge\Wordpress\Modul
         // wp_enqueue_script('VUEjs', plugin_dir_url(__FILE__) . 'ukmvideresending.js');
 
         // Fra Webpack, legger til i footer
-        wp_enqueue_script('mainUKMstatistikkJS',plugin_dir_url(__FILE__) . '/dist/main.js','','',true);
+        // wp_enqueue_script('mainUKMstatistikkJS',plugin_dir_url(__FILE__) . '/build/index.js','','',true);
+        echo '<script type="module" src="https://ukm.dev/2023-deatnu-tana-deatnu-tana-sorelv/wp-content/plugins/UKMstatstikk//build/index.js?ver=5.3.14"></script>';
     }
 
     /**

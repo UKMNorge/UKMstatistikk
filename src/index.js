@@ -1,2 +1,3 @@
-import _ from 'lodash';
-import test from './mainComponent';
+import {DeltaMainComponent} from "./ts/deltaMainComponent";
+
+var deltaMainComponent = new DeltaMainComponent();
