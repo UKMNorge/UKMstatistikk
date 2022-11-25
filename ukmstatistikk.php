@@ -1,8 +1,8 @@
 <?php
 /* 
-Plugin Name: UKM Statistikk VUE
+Plugin Name: UKM Statistikk
 Plugin URI: http://www.ukm.no
-Description: UKM Norge statstikk
+Description: UKM Norge statistikk
 Author: UKM Norge / Kushtrim Aliu
 Version: 1.0 
 Author URI: http://www.ukm.no
