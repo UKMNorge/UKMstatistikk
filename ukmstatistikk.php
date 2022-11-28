@@ -83,15 +83,11 @@ class UKMstatistikk extends UKMNorge\Wordpress\Modul
      * @return void
      */
     public static function script()
-    {
-        wp_enqueue_script('WPbootstrap3_js');
-        wp_enqueue_style('WPbootstrap3_css');
-        wp_enqueue_script('TwigJS');
-        // wp_enqueue_script('VUEjs', plugin_dir_url(__FILE__) . 'ukmvideresending.js');
+    {   
+        echo '<script src="https://unpkg.com/vue@3.2.45/dist/vue.global.js"></script>';
+        // echo '<script src="' . plugin_dir_url(__FILE__) . '/build/bundle.js"></script>';
+        wp_enqueue_script('mainUKMstatistikkJS',plugin_dir_url(__FILE__) . '/build/bundle.js','','',true);
 
-        // Fra Webpack, legger til i footer
-        // wp_enqueue_script('mainUKMstatistikkJS',plugin_dir_url(__FILE__) . '/build/index.js','','',true);
-        echo '<script type="module" src="https://ukm.dev/2023-deatnu-tana-deatnu-tana-sorelv/wp-content/plugins/UKMstatstikk//build/index.js?ver=5.3.14"></script>';
     }
 
     /**

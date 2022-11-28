@@ -1,24 +1,22 @@
-const path = require('path');
+var path = require('path');
 
-const config = {
-    entry: './build/index.js',
+module.exports = {
+    entry: './src/index.ts',
+    target: "node",
+    devtool: 'inline-source-map',
     output: {
-        filename: 'main.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'build'),
+        filename: 'bundle.js'
     },
     resolve: {
-        alias: {
-            'vue$': 'vue/dist/vue.esm.js'
-        }
-    }
-};
-
-
-// UKM_KA: We use Vagrant and therefore watching does not work without activating pool
-config.watchOptions = {
-    poll: true,
-};
-
-config.mode = 'development';
-
-module.exports = config;
+        extensions: ['.ts', '.js'] //resolve all the modules other than index.ts
+    },
+    module: {
+        rules: [
+            {
+                use: 'ts-loader',
+                test: /\.ts?$/
+            }
+        ]
+    },
+}
