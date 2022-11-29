@@ -86,7 +86,7 @@ class UKMstatistikk extends UKMNorge\Wordpress\Modul
     {   
         echo '<script src="https://unpkg.com/vue@3.2.45/dist/vue.global.js"></script>';
         // echo '<script src="' . plugin_dir_url(__FILE__) . '/build/bundle.js"></script>';
-        wp_enqueue_script('mainUKMstatistikkJS',plugin_dir_url(__FILE__) . '/build/bundle.js','','',true);
+        wp_enqueue_script('mainUKMstatistikkJS',plugin_dir_url(__FILE__) . '/dist/build.js','','',true);
 
     }
 
