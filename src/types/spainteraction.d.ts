@@ -1,3 +1,3 @@
-declare module "ukm-spa" {
-    export const SPAInteraction = require('ukm-spa').SPAInteraction;
+declare module "ukm-spa/SPAInteraction" {
+    const SPAInteraction = require('ukm-spa').SPAInteraction;
 }

@@ -12,7 +12,9 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
-import TabInterface from '../interfaces/tabInterface'
+import TabInterface from '../interfaces/tabInterface';
+import { SPAInteraction } from 'ukm-spa/SPAInteraction';
+
 
 
 @Component
@@ -22,11 +24,13 @@ export default class TilbakemeldingerKomponent extends Vue implements TabInterfa
 
     enthusiasm = this.initialEnthusiasm;
     public initialized : boolean = false;
+    private spaInteraction = new SPAInteraction(null);
 
     // Opprett nettsiden
     init() : void {
         // Get data via ajax
         this.initialized = true;
+        this.spaInteraction.showDialog();
     }
 
     myMethod() : void {

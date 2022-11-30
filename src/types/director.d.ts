@@ -1,3 +1,3 @@
-declare module "ukm-spa" {
-    export const Director = require('ukm-spa').Director;
+declare module "ukm-spa/Director" {
+    const Director = require('ukm-spa').Director;
 }

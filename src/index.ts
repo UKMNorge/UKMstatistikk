@@ -1,8 +1,8 @@
 import Vue from "vue";
 import TilbakemeldingerKomponent from "./components/Tilbakemeldinger.vue";
 import DeltaBrukKomponent from "./components/DeltaBruk.vue";
-import { SPAInteraction } from 'ukm-spa';
-import { Director } from 'ukm-spa';
+import { SPAInteraction } from 'ukm-spa/SPAInteraction';
+import { Director } from 'ukm-spa/Director';
 
 let v = new Vue({
     el: "#app",
