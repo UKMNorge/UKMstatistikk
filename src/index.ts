@@ -1,6 +1,8 @@
 import Vue from "vue";
 import TilbakemeldingerKomponent from "./components/Tilbakemeldinger.vue";
 import DeltaBrukKomponent from "./components/DeltaBruk.vue";
+import { SPAInteraction } from 'ukm-spa';
+import { Director } from 'ukm-spa';
 
 let v = new Vue({
     el: "#app",
@@ -16,6 +18,8 @@ let v = new Vue({
 
     mounted : function() {
         this.openTab(this.activeTab);
+        console.log(SPAInteraction);
+        console.log(Director);
     },
 
     methods : {
