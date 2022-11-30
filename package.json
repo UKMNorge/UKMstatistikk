@@ -18,7 +18,9 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "ukm-spa": "^1.0.4",
+    "@types/jquery": "^3.5.14",
+    "jquery": "^3.6.1",
+    "ukm-spa": "^1.0.6",
     "vue": "^2.5.2",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^6.0.0",

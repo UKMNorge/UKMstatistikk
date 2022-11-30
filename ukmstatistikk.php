@@ -38,8 +38,8 @@ class UKMstatistikk extends UKMNorge\Wordpress\Modul
      */
     public static function hook()
     {
-        add_action('wp_ajax_UKMstatistikk_ajax', ['UKMstatistikk', 'ajax']);
         add_action('admin_menu', ['UKMstatistikk', 'meny'], 101);
+        add_action('wp_ajax_UKMstatistikk_ajax', ['UKMstatistikk', 'ajax']);
     }
 
     /**
@@ -48,22 +48,14 @@ class UKMstatistikk extends UKMNorge\Wordpress\Modul
      * @return void
      */
     public static function ajax()
-    {
-        if (is_array($_POST)) {
-            static::addResponseData('POST', $_POST);
-        }
+    {   
+        $reques_method = $_SERVER['REQUEST_METHOD'];
+        $subAction = $_REQUEST['subaction'];
 
         try {
-            $supported_actions = [
-                'filmerAjax',
-            ];
+            require_once('ajax/' . $subAction . '.ajax.php');
 
-            if (in_array($_POST['subaction'], $supported_actions)) {
-                static::setupLogger();
-                require_once('ajax/' . $_POST['subaction'] . '.ajax.php');
-            } else {
-                throw new Exception('Beklager, støtter ikke denne handlingen!');
-            }
+        // Noe gikk galt
         } catch (Exception $e) {
             static::addResponseData('success', false);
             static::addResponseData('message', $e->getMessage());

@@ -3,7 +3,11 @@
     <div>
         <div v-if="initialized">
             <div>
-                87%
+                <div v-for="tbMelding in tilbakemeldinger" v-bind:key="tbMelding" :key="tbMelding.id">
+                    <p>{{ tbMelding.sporsmaal }}</p>
+                    <p>{{ tbMelding.svar }}</p>
+                    <hr>
+                </div>
             </div>
         </div>
     </div>
@@ -24,13 +28,41 @@ export default class TilbakemeldingerKomponent extends Vue implements TabInterfa
 
     enthusiasm = this.initialEnthusiasm;
     public initialized : boolean = false;
-    private spaInteraction = new SPAInteraction(null);
+    private spaInteraction = new SPAInteraction(null, 'https://ukm.dev/2023-deatnu-tana-deatnu-tana-sorelv/wp-admin/');
+    public tilbakemeldinger : Array<any> = [];
 
     // Opprett nettsiden
     init() : void {
         // Get data via ajax
         this.initialized = true;
-        this.spaInteraction.showDialog();
+        this.fetchData();
+    }
+
+    private async fetchData() {
+        var tilbakemeldinger = await this.getResponses('getTilbakemeldinger', {});
+        tilbakemeldinger = JSON.parse(tilbakemeldinger);
+
+        this.tilbakemeldinger = [];
+        for(var tilbakemelding of tilbakemeldinger) {
+            console.warn(tilbakemelding);
+            this.tilbakemeldinger.push(tilbakemelding);
+        }
+
+        return tilbakemeldinger;
+    }
+
+    private async getResponses(action : string, param_data : {}) {
+        var url = new URL(window.location.href);
+
+        var data = {
+            action: 'UKMstatistikk_ajax',
+            subaction: action,
+            til: url.searchParams.get("til")
+        };
+
+        var responses = await this.spaInteraction.runAjaxCall('admin-ajax.php/', 'POST', data);
+
+        return responses;
     }
 
     myMethod() : void {
