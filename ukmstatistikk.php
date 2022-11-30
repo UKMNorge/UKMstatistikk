@@ -84,10 +84,11 @@ class UKMstatistikk extends UKMNorge\Wordpress\Modul
      */
     public static function script()
     {   
-        echo '<script src="https://unpkg.com/vue@3.2.45/dist/vue.global.js"></script>';
-        // echo '<script src="' . plugin_dir_url(__FILE__) . '/build/bundle.js"></script>';
-        wp_enqueue_script('mainUKMstatistikkJS',plugin_dir_url(__FILE__) . '/dist/build.js','','',true);
+        // style
+    	wp_enqueue_style('UKMstatistikkStyle', plugin_dir_url(__FILE__) . '/style/style.css');
+    	wp_enqueue_style('UKMstatistikkTabs', plugin_dir_url(__FILE__) . '/style/tabs.css');
 
+        wp_enqueue_script('mainUKMstatistikkJS', plugin_dir_url(__FILE__) . '/dist/build.js','','',true);
     }
 
     /**

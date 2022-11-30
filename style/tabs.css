@@ -1,0 +1,16 @@
+.tab-items {
+    display: flex;
+}
+.tab-items .tab-item button {
+    border: none;
+    padding: 20px;
+    background: transparent;
+}
+.tab-items .tab-item button.active {
+    background: #0000;
+    border-bottom: solid 3px #4f46e5;
+    color: #4f46e5;
+}
+.tab-content.tabs {
+    padding-top: 20px;
+}

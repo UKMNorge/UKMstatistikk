@@ -1,0 +1,45 @@
+#statistikkMain {
+    margin-left: 0;
+    padding: 0;
+    margin-top: 30px;
+    display: flex;
+    min-height: 80vh;
+    width: 100%;
+}
+#menyLeft {
+    padding: 15px;
+    background: #18181b;
+    border-radius: 15px 0px 0px 15px;
+}
+#menyLeft * {
+    color: #fff;
+}
+#menyLeft .logo h3 {
+    margin: 0;
+    margin-bottom: 30px;
+}
+.menu-items .menu-item {
+    display: flex;
+    padding: 10px;
+}
+.menu-items button.menu-item {
+    background: transparent;
+    border-radius: 15px;
+    border: none;
+    background: #4f46e5;
+}
+.menu-items .menu-item .icon {
+    margin: auto;
+    margin-right: 15px;
+    display: flex;;
+}
+.menu-items .menu-item .title {
+    font-size: 16px;
+    margin: auto;
+}
+
+#statistikkContent {
+    border: solid 1px #bebebe;
+    padding-left: 15px;
+    width: 100%;
+}

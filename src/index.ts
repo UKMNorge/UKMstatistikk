@@ -13,6 +13,11 @@ let v = new Vue({
         TilbakemeldingerKomponent,
         DeltaBrukKomponent
     },
+
+    mounted : function() {
+        this.openTab(this.activeTab);
+    },
+
     methods : {
         // Open tab
         openTab: function(tabRef : string) : void {
@@ -25,17 +30,17 @@ let v = new Vue({
     template: /*html*/`
     <div>    
         <div>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <button @click="openTab('tilbakemeldinger');">Tilbakemeldinger</button>
+            <div class="tab-items">
+                <div class="tab-item">
+                    <button :class="{'active' : activeTab == 'deltabruk'}" @click="openTab('deltabruk');">Bruk</button>
                 </div>
-                <div class="menu-item">
-                    <button @click="openTab('deltabruk');">Påmeldingssystemet</button>
+                <div class="tab-item">
+                    <button :class="{'active' : activeTab == 'tilbakemeldinger'}" @click="openTab('tilbakemeldinger');">Tilbakemeldinger</button>
                 </div>
             </div>
 
             
-            <div class="item-content tabs">
+            <div class="tab-content tabs">
                 <div v-show="activeTab == 'tilbakemeldinger'">
                     <tilbakemeldinger-komponent ref="tilbakemeldinger" :name="name" :initialEnthusiasm="5" />
                 </div>
