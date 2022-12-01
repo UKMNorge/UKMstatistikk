@@ -13,12 +13,14 @@ $feedbacks = new Feedbacks();
 
 $retArray = [];
 foreach($feedbacks->getAll() as $feedback){
+    $innslag = $feedback->getInnslag();
     $resp = null;
     foreach($feedback->getResponses() as $response) {
         $resp = [
             'id' => $response->getId(),
             'sporsmaal' => $response->getSporsmaal(),
             'svar' => $response->getSvar(),
+            'innslag_type' => $innslag->getType() 
         ];
     }
     $retArray[] = $resp;
