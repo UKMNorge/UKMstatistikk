@@ -76,6 +76,9 @@ class UKMstatistikk extends UKMNorge\Wordpress\Modul
      */
     public static function script()
     {   
+        wp_enqueue_script('WPbootstrap3_js');
+        wp_enqueue_style('WPbootstrap3_css');
+
         // style
     	wp_enqueue_style('UKMstatistikkStyle', plugin_dir_url(__FILE__) . '/style/style.css');
     	wp_enqueue_style('UKMstatistikkTabs', plugin_dir_url(__FILE__) . '/style/tabs.css');
