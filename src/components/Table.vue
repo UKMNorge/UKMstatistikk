@@ -1,5 +1,10 @@
 <template>
     <div>
+        <div class="removed-keys">
+            <button v-for="key in removedKeys" @click="addKey(key)" class="key ukm-botton-style correct-button">
+                <span>{{ key.navn }}</span>
+            </button>
+        </div>
         <table class="table ukm-vue-table-row">
             <thead>
                 <tr>
@@ -16,8 +21,8 @@
                                     </div>
                                 </div>
                             </button>
-                            <button class="remove-row" @click="removeRow(key)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="3 4 18 18" style="fill: #4b4444"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
+                            <button class="remove-row ukm-botton-style not-correct-button" @click="removeRow(key)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="3 4 19 18" style="fill: #272727"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
                             </button>
                         </div>
                     </th>
@@ -41,6 +46,8 @@ export default class TableKomponent extends Vue {
     @Prop() keys!: {navn : string, method : string}[];
     @Prop() values!: any[];
 
+    public removedKeys : {navn : string, method : string}[] = [];
+
     public currentSort : string = '';
     public ascSort : boolean = true;
 
@@ -60,7 +67,19 @@ export default class TableKomponent extends Vue {
     public removeRow(key : {navn : string, method : string}) {           
         for(var i = 0; i < this.keys.length; i++) {
             if(this.keys[i].navn == key.navn) { 
+                this.removedKeys.push(this.keys[i]);
                 this.keys.splice(i, 1);
+            }
+        }
+
+    }
+
+    public addKey(key : {navn : string, method : string}) {
+        for(var i = 0; i < this.removedKeys.length; i++) {
+            if(this.removedKeys[i].navn == key.navn) { 
+                this.keys.push(key);
+                this.removedKeys.splice(i, 1);
+
             }
         }
     }
@@ -104,6 +123,8 @@ Vue.component('table-komponent', TableKomponent);
         margin: auto;
         margin-left: -5px;
         padding: 4px 3px;
+        border: solid 1px #00000040 !important;
+        background: #fff !important;
     }
     .ukm-vue-table-row thead tr th:hover button.remove-row {
         visibility: visible;
@@ -123,5 +144,26 @@ Vue.component('table-komponent', TableKomponent);
     .ukm-vue-table-row thead tr th .sort-button .title {
         margin: auto;
         margin-right: 5px;
+    }
+    .removed-keys {
+        display: flex;
+    }
+    .ukm-botton-style {
+        margin-right: 10px;
+        padding: 4px 20px;
+        border-radius: 10px;
+        border: none;
+        color: #fff;
+        font-weight: 500;
+    }
+    .ukm-botton-style.correct-button {
+        background: #60aa96;
+    }
+    .ukm-botton-style.not-correct-button {
+        background: #ee6f58;
+    }
+    
+    .removed-keys button.key {
+
     }
 </style>

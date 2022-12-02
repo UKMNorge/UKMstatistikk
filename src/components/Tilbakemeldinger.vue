@@ -72,7 +72,7 @@ export default class TilbakemeldingerKomponent extends Vue implements TabInterfa
 
         var xValues = ["Ja", "Nei",];
         var yValues = [countJa, countNei];
-        var barColors = ["#00aba9", "#b91d47"];
+        var barColors = ["#60aa96", "#ee6f58"];
 
         new Chart("tilbakemeldingerChart", {
             type: "doughnut",
