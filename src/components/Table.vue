@@ -16,7 +16,9 @@
                                     </div>
                                 </div>
                             </button>
-                            <button class="remove-row" @click="removeRow(key)">x</button>
+                            <button class="remove-row" @click="removeRow(key)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="3 4 18 18" style="fill: #4b4444"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
+                            </button>
                         </div>
                     </th>
                 </tr>
@@ -95,6 +97,13 @@ Vue.component('table-komponent', TableKomponent);
         
     .ukm-vue-table-row thead tr th button.remove-row {
         visibility: hidden;
+        border-radius: 25px;
+        width: 25px;
+        height: 25px;
+        border: solid 1px #bebebe;
+        margin: auto;
+        margin-left: -5px;
+        padding: 4px 3px;
     }
     .ukm-vue-table-row thead tr th:hover button.remove-row {
         visibility: visible;

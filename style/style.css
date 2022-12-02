@@ -10,6 +10,7 @@
     padding: 15px;
     background: #18181b;
     border-radius: 15px 0px 0px 15px;
+    width: 350px;
 }
 #menyLeft * {
     color: #fff;
@@ -20,22 +21,25 @@
 }
 .menu-items .menu-item {
     display: flex;
-    padding: 10px;
+    padding: 10px 15px;
 }
 .menu-items button.menu-item {
     background: transparent;
     border-radius: 15px;
     border: none;
     background: #4f46e5;
+    width: 100%;
 }
 .menu-items .menu-item .icon {
     margin: auto;
     margin-right: 15px;
+    margin-left: 0;
     display: flex;;
 }
 .menu-items .menu-item .title {
     font-size: 16px;
     margin: auto;
+    margin-left: 0;
 }
 
 #statistikkContent {
