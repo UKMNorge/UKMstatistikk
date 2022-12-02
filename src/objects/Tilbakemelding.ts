@@ -1,6 +1,8 @@
 // Representerer en tilbakemelding
 
-export default class Tilbakemelding {
+import TableItemInterface from "../interfaces/TableItemInterface";
+
+export default class Tilbakemelding implements TableItemInterface {
     private id : number;
     private sporsmaal : string;
     private svar : string;
@@ -27,5 +29,13 @@ export default class Tilbakemelding {
 
     public getInnslagType() : string {
         return this.innslagType;
+    }
+
+    public getKeysForTable() : {navn : string, method : string}[] {
+        return [
+            {navn : 'Spørsmål', method :'getSporsmaal'},
+            {navn : 'Svar', method : 'getSvar'},
+            {navn : 'Type', method : 'getInnslagType'}
+        ];
     }
 }

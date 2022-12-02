@@ -1,23 +1,8 @@
 <!-- This is an alternative way to define the Hello component using decorators -->
 <template>
-    <div>
+    <div v-if="initialized">
         <div class="col-xs-8">
-            <table v-if="initialized" class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Spørsmål</th>
-                        <th scope="col">Svar</th>
-                        <th scope="col">Innslag Type</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="tilbakemelding in tilbakemeldinger" v-bind:key="tilbakemelding" :key="tilbakemelding.getId()">
-                        <td>{{ tilbakemelding.getSporsmaal() }}</td>
-                        <td>{{ tilbakemelding.getSvar() }}</td>
-                        <td>{{ tilbakemelding.getInnslagType() }}</td>
-                    </tr>
-                </tbody>
-            </table>
+           <table-komponent :keys="tableKeys" :values="tilbakemeldinger"></table-komponent>
         </div>
 
         <div class="col-xs-4">
@@ -33,6 +18,7 @@ import TabInterface from '../interfaces/tabInterface';
 import { SPAInteraction } from 'ukm-spa/SPAInteraction';
 import { Chart } from 'chart.js';
 import Tilbakemelding from '../objects/Tilbakemelding';
+import TableKomponent from "./Table.vue";
 
 
 
@@ -42,10 +28,15 @@ export default class TilbakemeldingerKomponent extends Vue implements TabInterfa
     @Prop() name!: string;
     @Prop() initialEnthusiasm!: number;
 
+
     enthusiasm = this.initialEnthusiasm;
     public initialized : boolean = false;
     private spaInteraction = new SPAInteraction(null, 'https://ukm.dev/2023-deatnu-tana-deatnu-tana-sorelv/wp-admin/');
-    public tilbakemeldinger : Array<Tilbakemelding> = [];
+    
+    public tilbakemeldinger : Tilbakemelding[] = [];
+    public tableKeys : {navn : string, method : string}[]= [];
+
+    public components = [TableKomponent];
 
     // Opprett nettsiden
     init() : void {
@@ -59,10 +50,16 @@ export default class TilbakemeldingerKomponent extends Vue implements TabInterfa
         tilbakemeldinger = JSON.parse(tilbakemeldinger);
 
         this.tilbakemeldinger = [];
+        var tb : Tilbakemelding|null = null;
         for(var tilbakemelding of tilbakemeldinger) {
             var innslagType = tilbakemelding.innslag_type ? tilbakemelding.innslag_type.name : '';
 
-            this.tilbakemeldinger.push(new Tilbakemelding(tilbakemelding.id, tilbakemelding.sporsmaal, tilbakemelding.svar, innslagType));
+            tb = new Tilbakemelding(tilbakemelding.id, tilbakemelding.sporsmaal, tilbakemelding.svar, innslagType);
+            this.tilbakemeldinger.push(tb);
+        }
+
+        if(tb) {
+            this.tableKeys = tb.getKeysForTable();
         }
 
         this.updateDoughnut();
