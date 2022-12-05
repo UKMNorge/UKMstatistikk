@@ -17,14 +17,16 @@ $SQL = new Query(
     "SELECT last_login AS date, count(id) AS total 
     FROM ukm_user 
     WHERE last_login > '#from_date'
-    GROUP BY ". $hourOrDay ."(last_login)",
+    GROUP BY #day_hour(last_login)",
     [
-        'from_date' => $fromDate
+        'from_date' => $fromDate,
+        'day_hour' => $hourOrDay
     ],
     'ukmdelta'
 );
 
 $res = $SQL->run();
+
 while ($r = Query::fetch($res)) {
     $retArray[] = $r;
 }
