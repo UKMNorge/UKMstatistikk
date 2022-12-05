@@ -147,22 +147,7 @@ Vue.component('table-komponent', TableKomponent);
     }
     .removed-keys {
         display: flex;
-    }
-    .ukm-botton-style {
-        margin-right: 10px;
-        padding: 4px 20px;
-        border-radius: 10px;
-        border: none;
-        color: #fff;
-        font-weight: 500;
-    }
-    .ukm-botton-style.correct-button {
-        background: #60aa96;
-    }
-    .ukm-botton-style.not-correct-button {
-        background: #ee6f58;
-    }
-    
+    }    
     .removed-keys button.key {
 
     }
