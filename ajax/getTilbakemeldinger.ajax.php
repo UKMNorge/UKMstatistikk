@@ -18,7 +18,7 @@ foreach($feedbacks->getAll() as $feedback){
             'id' => (int)$response->getId(),
             'sporsmaal' => $response->getSporsmaal(),
             'svar' => $response->getSvar(),
-            'innslag_type' => $innslag->getType() 
+            'innslag_type' => $innslag ? $innslag->getType() : ' ' 
         ];
     }
     $retArray[] = $resp;
