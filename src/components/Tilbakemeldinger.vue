@@ -47,7 +47,6 @@ export default class TilbakemeldingerKomponent extends Vue implements TabInterfa
 
     private async fetchData() {
         var tilbakemeldinger = await this.getResponses('getTilbakemeldinger', {});
-        tilbakemeldinger = JSON.parse(tilbakemeldinger);
 
         this.tilbakemeldinger = [];
         var tb : Tilbakemelding|null = null;
