@@ -38,7 +38,7 @@ class UKMstatistikk extends UKMNorge\Wordpress\Modul
      */
     public static function hook()
     {
-        add_action('admin_menu', ['UKMstatistikk', 'meny'], 101);
+        add_action('network_admin_menu', ['UKMstatistikk', 'meny'], 101);
         add_action('wp_ajax_UKMstatistikk_ajax', ['UKMstatistikk', 'ajax']);
     }
 
@@ -74,7 +74,7 @@ class UKMstatistikk extends UKMNorge\Wordpress\Modul
      *
      * @return void
      */
-    public static function script()
+    public static function scripts_and_styles()
     {   
         wp_enqueue_script('WPbootstrap3_js');
         wp_enqueue_style('WPbootstrap3_css');
@@ -92,19 +92,18 @@ class UKMstatistikk extends UKMNorge\Wordpress\Modul
      **/
     public static function meny()
     {
-        add_action(
-            'admin_print_styles-' .
-                add_menu_page(
-
-                    'Statistikk',
-                    'Statistikk',
-                    'editor',
-                    'UKMstatistikk',
-                    ['UKMstatistikk', 'renderAdmin'],
-                    'dashicons-editor-removeformatting', #'//ico.ukm.no/paper-airplane-20.png',
-                    90
-                ),
-            ['UKMstatistikk', 'script']
+        $page = add_menu_page(
+            'UKM Norge Statistikk', 
+            'Statistikk', 
+            'superadmin', 
+            'UKMstatistikk',
+            ['UKMstatistikk','renderAdmin'], 
+            'dashicons-welcome-view-site',
+            401
+        );
+        add_action( 
+            'admin_print_styles-' . $page, 
+            ['UKMstatistikk', 'scripts_and_styles']
         );
     }
 }
