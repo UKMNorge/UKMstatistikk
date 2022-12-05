@@ -1,7 +1,5 @@
 <?php
 use UKMNorge\OAuth2\HandleAPICall;
-use UKMNorge\Feedback\FeedbackDelta;
-use UKMNorge\Feedback\FeedbackResponse;
 use UKMNorge\Feedback\Feedbacks;
 
 
