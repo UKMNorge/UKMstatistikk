@@ -62,7 +62,7 @@ export default class BoxStatistikk extends Vue {
         //     antal.push(d.getTotal());
         // }
 
-        var barColors = ["#60aa96", "#ee6f58"];
+        var barColors = ["#ee6f58", "#60aa96"];
         
         this.chart = new Chart("boxStatistikk", {
             type: this.chartType,

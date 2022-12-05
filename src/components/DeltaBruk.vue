@@ -3,7 +3,7 @@
     <div v-if="initialized">
         <h4>Generelt</h4>
         <div class="box-statistikk-div">
-            <box-statistikk ref="antall-brukere" :title="'Antall brukere'" :labels="['Reelle', 'Ikke Reelle']" :subaction="'getTotalBrukereDelta'" :initialEnthusiasm="5" />
+            <box-statistikk ref="antall-brukere" :title="'Antall brukere'" :labels="['Ubrukte', 'Brukte']" :subaction="'getTotalBrukereDelta'" :initialEnthusiasm="5" />
             
             <div class="box-statistikk">
                 <div class="info">
