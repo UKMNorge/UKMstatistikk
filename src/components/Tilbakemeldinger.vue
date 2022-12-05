@@ -20,7 +20,7 @@ import { Chart } from 'chart.js';
 import Tilbakemelding from '../objects/Tilbakemelding';
 import TableKomponent from "./Table.vue";
 
-
+declare var ajaxurl: string; // Kommer fra global
 
 
 @Component
@@ -31,7 +31,7 @@ export default class TilbakemeldingerKomponent extends Vue implements TabInterfa
 
     enthusiasm = this.initialEnthusiasm;
     public initialized : boolean = false;
-    private spaInteraction = new SPAInteraction(null, 'https://ukm.dev/2023-deatnu-tana-deatnu-tana-sorelv/wp-admin/');
+    private spaInteraction = new SPAInteraction(null, ajaxurl);
     
     public tilbakemeldinger : Tilbakemelding[] = [];
     public tableKeys : {navn : string, method : string}[]= [];
@@ -94,7 +94,7 @@ export default class TilbakemeldingerKomponent extends Vue implements TabInterfa
             til: url.searchParams.get("til")
         };
 
-        var responses = await this.spaInteraction.runAjaxCall('admin-ajax.php/', 'POST', data);
+        var responses = await this.spaInteraction.runAjaxCall('/admin-ajax.php/', 'POST', data);
 
         return responses;
     }
