@@ -15,7 +15,7 @@ foreach($feedbacks->getAll() as $feedback){
     $resp = null;
     foreach($feedback->getResponses() as $response) {
         $resp = [
-            'id' => $response->getId(),
+            'id' => (int)$response->getId(),
             'sporsmaal' => $response->getSporsmaal(),
             'svar' => $response->getSvar(),
             'innslag_type' => $innslag->getType() 
