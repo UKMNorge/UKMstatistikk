@@ -5,10 +5,7 @@ use UKMNorge\Database\SQL\Query;
 // Det brukes POST fordi WP tillater POST bare
 $handleCall = new HandleAPICall([], [], ['GET', 'POST'], false);
 
-// $feedbacks = new Feedbacks();
-
 $retArray = [];
-$hourOrDay = $timelineName == 'day' ? 'hour' : 'day';
 
 $SQL = new Query(
     "SELECT count(id) as antall from ukm_user WHERE last_login != 'NULL'",
