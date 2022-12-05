@@ -65,3 +65,37 @@
     color: #fff;
     border-color: #ee6f58;
 }
+.box-statistikk-div {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+.box-statistikk-div > div {
+    margin-right: 20px;
+    display: flex;
+}
+.box-statistikk {
+    border: solid 1px red;
+    border-radius: 20px;
+    padding: 20px;
+    border: solid 1px #e4e4e785;
+    background: #fff;
+    box-shadow: 1px 2px 5px #00000012;
+}
+.box-statistikk .info .title {
+    font-size: 15px;
+    margin: 0;
+}
+.box-statistikk .info .value {
+    font-weight: 500;
+    margin: 0;
+    margin-top: 10px;
+}
+.box-statistikk .chart-div {
+    margin-top: 20px;
+}
+.box-statistikk .chart-div.doughnut {
+    margin: auto;
+    margin-top: 0;
+    margin-left: 30px;
+}
