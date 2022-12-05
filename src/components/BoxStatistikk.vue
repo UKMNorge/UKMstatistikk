@@ -45,7 +45,7 @@ export default class BoxStatistikk extends Vue {
             subaction: this.subaction,
         };
 
-        var response = await this.spaInteraction.runAjaxCall('/admin-ajax.php/', 'POST', data);
+        var response = await this.spaInteraction.runAjaxCall('/', 'POST', data);
         this.antallBrukere = response.antall;
         this.genererChart(response.antall_ikke_brukt);
         

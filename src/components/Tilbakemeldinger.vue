@@ -94,7 +94,7 @@ export default class TilbakemeldingerKomponent extends Vue implements TabInterfa
             til: url.searchParams.get("til")
         };
 
-        var responses = await this.spaInteraction.runAjaxCall('/admin-ajax.php/', 'POST', data);
+        var responses = await this.spaInteraction.runAjaxCall('/', 'POST', data);
 
         return responses;
     }

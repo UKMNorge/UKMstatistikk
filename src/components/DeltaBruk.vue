@@ -111,7 +111,7 @@ export default class DeltaBrukKomponent extends Vue implements TabInterface {
         };
         
 
-        var response = await this.spaInteraction.runAjaxCall('/admin-ajax.php/', 'POST', data);
+        var response = await this.spaInteraction.runAjaxCall('/', 'POST', data);
         this.deltaDates = [];
         this.totalBrukereSelected = 0;
 
