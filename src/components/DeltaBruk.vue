@@ -1,14 +1,47 @@
 <!-- This is an alternative way to define the Hello component using decorators -->
 <template>
-    <div>
-        <div v-if="initialized">
+    <div v-if="initialized">
+        <h4>Generelt</h4>
+        <div class="box-statistikk-div">
+            <box-statistikk ref="antall-brukere" :title="'Antall brukere'" :labels="['Reelle', 'Ikke Reelle']" :subaction="'getTotalBrukereDelta'" :initialEnthusiasm="5" />
+            
+            <div class="box-statistikk">
+                <div class="info">
+                    <p class="title">Brukere gjennom Facebook</p>
+                    <h3 class="value">--</h3>
+                </div>
+                <div></div>
+            </div>
+
+            <div class="box-statistikk">
+                <div class="info">
+                    <p class="title">Bedt om nytt passord</p>
+                    <h3 class="value">--</h3>
+                </div>
+                <div></div>
+            </div>
+
+        </div>
+        <h4>Bruk av påmledingssystemet</h4>
+        <div>
             <div class="filter-buttons">
                 <button @click="changeTimeline('day')" :class="{'correct-button' : selectedButton == 'day'}" class="ukm-botton-style">I dag</button>
                 <button @click="changeTimeline('week')" :class="{'correct-button' : selectedButton == 'week'}" class="ukm-botton-style">Siste uke</button>
                 <button @click="changeTimeline('month')" :class="{'correct-button' : selectedButton == 'month'}" class="ukm-botton-style">Siste måned</button>
             </div>
+
+            <div class="box-statistikk-div">
+                <div class="box-statistikk">
+                    <div class="info">
+                        <p class="title">Antall</p>
+                        <h3 class="value">{{ totalBrukereSelected }}</h3>
+                    </div>
+                    <div></div>
+                </div>
+            </div>
+
             <div>
-                <canvas id="deltaBrukereChart" style="width:100%;max-width:600px"></canvas>
+                <canvas class="box-statistikk" id="deltaBrukereChart" style="width:100%; max-width: 1200px;"></canvas>
             </div>
         </div>
     </div>
@@ -21,9 +54,9 @@ import TabInterface from '../interfaces/tabInterface'
 import { SPAInteraction } from 'ukm-spa/SPAInteraction';
 import { Chart } from 'chart.js';
 import DeltaDate from '../objects/DeltaDate';
+import BoxStatistikk from "./BoxStatistikk.vue";
 
 type TimelineButton = "day" | "week" | "month";
-
 
 @Component
 export default class DeltaBrukKomponent extends Vue implements TabInterface {
@@ -35,6 +68,10 @@ export default class DeltaBrukKomponent extends Vue implements TabInterface {
     private spaInteraction = new SPAInteraction(null, 'https://ukm.dev/2023-deatnu-tana-deatnu-tana-sorelv/wp-admin/');
     public deltaDates : DeltaDate[] = [];
     public selectedButton : TimelineButton = 'day';
+    private chart : any;
+    public totalBrukereSelected : number = 0;
+
+    public components = [BoxStatistikk];
 
     // Opprett nettsiden
     init() : void {
@@ -49,17 +86,38 @@ export default class DeltaBrukKomponent extends Vue implements TabInterface {
         this.fetchData();
     }
 
+    private getTimeline() : string {
+        var now = new Date();
+
+        if(this.selectedButton == 'week') {
+            now = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
+        }
+        // Month
+        else if(this.selectedButton == 'month') {
+            now.setMonth(now.getMonth() - 1);
+        }
+
+        // YYYY-MM-DD
+        return now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+    }
+
     public async fetchData() {
         var data = {
             action: 'UKMstatistikk_ajax',
             subaction: 'getBrukereDelta',
-            from_date: '2020-01-01 12:15:00'
+            from_date: this.getTimeline(),
+            timeline_name : this.selectedButton
         };
+        
 
         var response = await this.spaInteraction.runAjaxCall('admin-ajax.php/', 'POST', data);
         this.deltaDates = [];
+        this.totalBrukereSelected = 0;
+
         for(var $r of response) {
-            this.deltaDates.push(new DeltaDate($r['date'], $r['total']))
+            var deltaDate = new DeltaDate($r['date'], parseInt($r['total']));
+            this.deltaDates.push(deltaDate)
+            this.totalBrukereSelected += deltaDate.getTotal();
         }
         
         this.genererChart();
@@ -70,31 +128,62 @@ export default class DeltaBrukKomponent extends Vue implements TabInterface {
     genererChart() : void {
         var labels : string[] = [];
         var antal : number[] = [];
+        var max = 0;
 
         for(var d of this.deltaDates) {
-            labels.push(d.getDateString())
+            max = d.getTotal() > max ? d.getTotal() : max;
+            labels.push(this.selectedButton == 'day' ? d.getHourString() : d.getDateString())
             antal.push(d.getTotal());
         }
 
+        console.log(max);
 
-        new Chart("deltaBrukereChart", {
-        type: "line",
-        data: {
-            labels: labels,
-            datasets: [{
-            fill: true,
-            lineTension: 0,
-            backgroundColor: "rgba(0,0,255,.1)",
-            borderColor: "rgba(0,0,255,0.1)",
-            data: antal
-            }]
-        },
-        options: {
-            legend: {display: false},
-            scales: {
-            yAxes: [{ticks: {min: 6, max:16}}],
-            }
-        }
+        this.chart = new Chart("deltaBrukereChart", {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: antal,
+                    lineTension: 0.2,
+                    borderColor: '#ee6f58',
+                    backgroundColor: 'rgba(0,0,0,0.0)',
+                    pointBackgroundColor: ['white', 'white', 'white', 'white', 'white', 'white', '#ee6f58'],
+                    pointRadius: 4,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                legend: {
+                    display: false,
+                },
+                scales: {
+                    xAxes: [{
+                    gridLines: {
+                        display: false,
+                    },
+                    ticks: {
+                        fontSize: 15,
+                        fontColor: 'lightgrey',
+                        stepSize: 1,
+                    }
+                    }],
+                    yAxes: [{
+                    gridLines: {
+                        drawBorder: false,
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 15,
+                        fontColor: 'lightgrey',
+                        maxTicksLimit: 5,
+                        padding: 25,
+                    }
+                    }]
+                },
+                tooltips: {
+                    backgroundColor: '#1e90ff'
+                }
+            },
         });
     }
 }
