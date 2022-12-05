@@ -19,6 +19,8 @@ import { SPAInteraction } from 'ukm-spa/SPAInteraction';
 import { Chart } from 'chart.js';
 import DeltaDate from '../objects/DeltaDate';
 
+declare var ajaxurl: string; // Kommer fra global
+
 @Component
 export default class BoxStatistikk extends Vue {
     @Prop() subaction!: string;
@@ -26,7 +28,7 @@ export default class BoxStatistikk extends Vue {
     @Prop() labels!: string[];
 
     public initialized : boolean = false;
-    private spaInteraction = new SPAInteraction(null, 'https://ukm.dev/2023-deatnu-tana-deatnu-tana-sorelv/wp-admin/');
+    private spaInteraction = new SPAInteraction(null, ajaxurl);
     public deltaDates : DeltaDate[] = [];
     private chart : any;
     public antallBrukere : number = 0;
@@ -43,7 +45,7 @@ export default class BoxStatistikk extends Vue {
             subaction: this.subaction,
         };
 
-        var response = await this.spaInteraction.runAjaxCall('admin-ajax.php/', 'POST', data);
+        var response = await this.spaInteraction.runAjaxCall('/admin-ajax.php/', 'POST', data);
         this.antallBrukere = response.antall;
         this.genererChart(response.antall_ikke_brukt);
         

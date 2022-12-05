@@ -57,6 +57,7 @@ import DeltaDate from '../objects/DeltaDate';
 import BoxStatistikk from "./BoxStatistikk.vue";
 
 type TimelineButton = "day" | "week" | "month";
+declare var ajaxurl: string; // Kommer fra global
 
 @Component
 export default class DeltaBrukKomponent extends Vue implements TabInterface {
@@ -65,7 +66,7 @@ export default class DeltaBrukKomponent extends Vue implements TabInterface {
 
     enthusiasm = this.initialEnthusiasm;
     public initialized : boolean = false;
-    private spaInteraction = new SPAInteraction(null, 'https://ukm.dev/2023-deatnu-tana-deatnu-tana-sorelv/wp-admin/');
+    private spaInteraction = new SPAInteraction(null, ajaxurl);
     public deltaDates : DeltaDate[] = [];
     public selectedButton : TimelineButton = 'day';
     private chart : any;
@@ -110,7 +111,7 @@ export default class DeltaBrukKomponent extends Vue implements TabInterface {
         };
         
 
-        var response = await this.spaInteraction.runAjaxCall('admin-ajax.php/', 'POST', data);
+        var response = await this.spaInteraction.runAjaxCall('/admin-ajax.php/', 'POST', data);
         this.deltaDates = [];
         this.totalBrukereSelected = 0;
 
