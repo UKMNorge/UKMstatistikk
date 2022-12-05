@@ -98,8 +98,8 @@ class UKMstatistikk extends UKMNorge\Wordpress\Modul
             'superadmin', 
             'UKMstatistikk',
             ['UKMstatistikk','renderAdmin'], 
-            'dashicons-welcome-view-site',
-            401
+            'dashicons-editor-alignleft',
+            402
         );
         add_action( 
             'admin_print_styles-' . $page, 
