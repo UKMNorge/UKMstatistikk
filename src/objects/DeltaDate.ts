@@ -23,6 +23,10 @@ export default class DeltaDate implements TableItemInterface {
         return this.date.getDate() + '.' + this.date.getMonth() + '.' + this.date.getFullYear();
     }
 
+    public getHourString() : string {
+        return this.date.getHours() + ':' + this.date.getMinutes();
+    }
+
     public getKeysForTable() : {navn : string, method : string}[] {
         return [
             {navn : 'Dato', method :'getDate'},
