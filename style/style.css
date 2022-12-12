@@ -99,3 +99,41 @@
     margin-top: 0;
     margin-left: 30px;
 }
+.chart-full-div {
+    border-radius: 20px;
+}
+
+/* Phantom loading */
+@keyframes placeHolderShimmer{
+    0%{
+        background-position: -468px 0
+    }
+    100%{
+        background-position: 468px 0
+    }
+}
+.loaded.phantom,
+.loaded .phantom {
+    display: none;
+}
+.phantom-loading {
+    animation-duration: .8s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    background-size: 1000px 104px;
+    position: relative;
+    overflow: hidden;
+    color: #0000 !important;
+    fill: #0000 !important;
+}
+.phantom-loading * {
+    fill: transparent;
+}
+
+.phantom-loading canvas {
+    background: transparent !important;
+}

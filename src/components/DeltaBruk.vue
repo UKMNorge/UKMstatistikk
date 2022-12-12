@@ -3,44 +3,44 @@
     <div v-if="initialized">
         <h4>Generelt</h4>
         <div class="box-statistikk-div">
-            <box-statistikk ref="antall-brukere" :title="'Antall brukere'" :labels="['Ubrukte', 'Brukte']" :subaction="'getTotalBrukereDelta'" :initialEnthusiasm="5" />
+            <box-statistikk ref="antall-brukere" :loading="loading" :title="'Antall brukere'" :labels="['Ubrukte', 'Brukte']" :subaction="'getTotalBrukereDelta'" :initialEnthusiasm="5" />
             
             <div class="box-statistikk">
                 <div class="info">
-                    <p class="title">Brukere gjennom Facebook</p>
-                    <h3 class="value">--</h3>
+                    <p :class="{'phantom-loading' : loading}" class="title">Brukere gjennom Facebook</p>
+                    <h3 :class="{'phantom-loading' : loading}" class="value">--</h3>
                 </div>
                 <div></div>
             </div>
 
             <div class="box-statistikk">
                 <div class="info">
-                    <p class="title">Bedt om nytt passord</p>
-                    <h3 class="value">--</h3>
+                    <p :class="{'phantom-loading' : loading}" class="title">Bedt om nytt passord</p>
+                    <h3 :class="{'phantom-loading' : loading}" class="value">--</h3>
                 </div>
                 <div></div>
             </div>
 
         </div>
-        <h4>Bruk av påmledingssystemet</h4>
+        <h4>Bruk av påmeldingssystemet</h4>
         <div>
             <div class="filter-buttons">
-                <button @click="changeTimeline('day')" :class="{'correct-button' : selectedButton == 'day'}" class="ukm-botton-style">I dag</button>
-                <button @click="changeTimeline('week')" :class="{'correct-button' : selectedButton == 'week'}" class="ukm-botton-style">Siste uke</button>
-                <button @click="changeTimeline('month')" :class="{'correct-button' : selectedButton == 'month'}" class="ukm-botton-style">Siste måned</button>
+                <button @click="changeTimeline('day')" :class="{'correct-button' : selectedButton == 'day', 'phantom-loading' : loading }" class="ukm-botton-style">I dag</button>
+                <button @click="changeTimeline('week')" :class="{'correct-button' : selectedButton == 'week', 'phantom-loading' : loading }" class="ukm-botton-style">Siste uke</button>
+                <button @click="changeTimeline('month')" :class="{'correct-button' : selectedButton == 'month', 'phantom-loading' : loading }" class="ukm-botton-style">Siste måned</button>
             </div>
 
             <div class="box-statistikk-div">
                 <div class="box-statistikk">
                     <div class="info">
                         <p class="title">Antall</p>
-                        <h3 class="value">{{ totalBrukereSelected }}</h3>
+                        <h3 :class="{'phantom-loading' : loadingChart}" class="value">{{ totalBrukereSelected }}</h3>
                     </div>
                     <div></div>
                 </div>
             </div>
 
-            <div>
+            <div :class="{'phantom-loading' : loadingChart}" class="chart-full-div">
                 <canvas class="box-statistikk" id="deltaBrukereChart" style="width:100%; max-width: 1200px;"></canvas>
             </div>
         </div>
@@ -66,6 +66,8 @@ export default class DeltaBrukKomponent extends Vue implements TabInterface {
 
     enthusiasm = this.initialEnthusiasm;
     public initialized : boolean = false;
+    public loading : boolean = true;
+    public loadingChart : boolean = true;
     private spaInteraction = new SPAInteraction(null, ajaxurl);
     public deltaDates : DeltaDate[] = [];
     public selectedButton : TimelineButton = 'day';
@@ -77,9 +79,10 @@ export default class DeltaBrukKomponent extends Vue implements TabInterface {
     // Opprett nettsiden
     init() : void {
         // Get data via ajax
-        this.initialized = true;
-        this.fetchData();
-
+        if(!this.initialized) {
+            this.initialized = true;
+            this.fetchData();
+        }
     }
 
     public changeTimeline(selectedButton : TimelineButton) {
@@ -103,6 +106,8 @@ export default class DeltaBrukKomponent extends Vue implements TabInterface {
     }
 
     public async fetchData() {
+        this.loadingChart = true;
+
         var data = {
             action: 'UKMstatistikk_ajax',
             subaction: 'getBrukereDelta',
@@ -122,6 +127,7 @@ export default class DeltaBrukKomponent extends Vue implements TabInterface {
         }
         
         this.genererChart();
+        this.loading = false;
         
         return response;
     }
@@ -186,6 +192,8 @@ export default class DeltaBrukKomponent extends Vue implements TabInterface {
                 }
             },
         });
+        
+        this.loadingChart = false;
     }
 }
 </script>
