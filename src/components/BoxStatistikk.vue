@@ -6,7 +6,7 @@
             <h3 :class="{'phantom-loading' : loading}" class="value">{{ antallBrukere }}</h3>
         </div>
         <div v-show="!loading" class="chart-div" :class="chartType">
-            <canvas id="boxStatistikk" style="width: 100px; height: 100px"></canvas>
+            <canvas id="boxStatistikk" class="box-statstikk-100" style="width: 100px; height: 100px"></canvas>
         </div>
         <!--- Placeholder loading -->
         <div v-show="loading">
@@ -61,14 +61,8 @@ export default class BoxStatistikk extends Vue {
         var antall : number[] = [this.antallBrukere-antallIkkeBrukt, antallIkkeBrukt];
         var max = 0;
 
-        // for(var d of this.deltaDates) {
-        //     max = d.getTotal() > max ? d.getTotal() : max;
-        //     labels.push(this.selectedButton == 'day' ? d.getHourString() : d.getDateString())
-        //     antal.push(d.getTotal());
-        // }
-
         var barColors = ["#ee6f58", "#60aa96"];
-        
+
         this.chart = new Chart("boxStatistikk", {
             type: this.chartType,
             data: {
@@ -110,5 +104,9 @@ Vue.component('box-statistikk', BoxStatistikk);
     background: #fff !important;
     height: 100px;
     width: 100px;
+}
+.box-statstikk-100 {
+    width: 100px !important;
+    height: 100px !important;
 }
 </style>
