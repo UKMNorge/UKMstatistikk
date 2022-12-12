@@ -2,11 +2,15 @@
 <template>
     <div class="box-statistikk">
         <div class="info">
-            <p class="title">{{ title }}</p>
-            <h3 class="value">{{ antallBrukere }}</h3>
+            <p :class="{'phantom-loading' : loading}" class="title">{{ title }}</p>
+            <h3 :class="{'phantom-loading' : loading}" class="value">{{ antallBrukere }}</h3>
         </div>
-        <div class="chart-div" :class="chartType">
+        <div v-show="!loading" class="chart-div" :class="chartType">
             <canvas id="boxStatistikk" style="width: 100px; height: 100px"></canvas>
+        </div>
+        <!--- Placeholder loading -->
+        <div v-show="loading">
+            <div class="chart-placholder phantom-loading"><div class="background-placeholder"></div></div>
         </div>
     </div>
 </template>
@@ -23,9 +27,10 @@ declare var ajaxurl: string; // Kommer fra global
 
 @Component
 export default class BoxStatistikk extends Vue {
-    @Prop() subaction!: string;
-    @Prop() title!: string;
-    @Prop() labels!: string[];
+    @Prop() subaction! : string;
+    @Prop() title! : string;
+    @Prop() labels! : string[];
+    @Prop() loading! : boolean;
 
     public initialized : boolean = false;
     private spaInteraction = new SPAInteraction(null, ajaxurl);
@@ -92,5 +97,18 @@ Vue.component('box-statistikk', BoxStatistikk);
 </script>
 
 <style>
-
+.chart-placholder {
+    width: 100px;
+    height: 100px;
+    border: solid 23px #0000000a;
+    border-radius: 50%;
+    margin: auto;
+    margin-top: 0;
+    margin-left: 30px;
+}
+.chart-placholder .background-placeholder {
+    background: #fff !important;
+    height: 100px;
+    width: 100px;
+}
 </style>
