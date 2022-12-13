@@ -6,7 +6,7 @@
             <h3 :class="{'phantom-loading' : loading}" class="value">{{ antallBrukere }}</h3>
         </div>
         <div v-show="!loading" class="chart-div" :class="chartType">
-            <canvas id="boxStatistikk" class="box-statstikk-100" style="width: 100px; height: 100px"></canvas>
+            <canvas :id="chartId" class="box-statstikk-100" style="width: 100px; height: 100px"></canvas>
         </div>
         <!--- Placeholder loading -->
         <div v-show="loading">
@@ -22,6 +22,8 @@ import TabInterface from '../interfaces/tabInterface'
 import { SPAInteraction } from 'ukm-spa/SPAInteraction';
 import { Chart } from 'chart.js';
 import DeltaDate from '../objects/DeltaDate';
+import {v4 as uuidv4} from 'uuid';
+
 
 declare var ajaxurl: string; // Kommer fra global
 
@@ -38,6 +40,7 @@ export default class BoxStatistikk extends Vue {
     private chart : any;
     public antallBrukere : number = 0;
     public chartType = 'doughnut';
+    public chartId = uuidv4();
 
     // Opprett nettsiden
     mounted() : void {
@@ -63,7 +66,7 @@ export default class BoxStatistikk extends Vue {
 
         var barColors = ["#ee6f58", "#60aa96"];
 
-        this.chart = new Chart("boxStatistikk", {
+        this.chart = new Chart(this.chartId, {
             type: this.chartType,
             data: {
                 labels: this.labels,
