@@ -18,7 +18,7 @@ import TabInterface from '../interfaces/tabInterface';
 import { SPAInteraction } from 'ukm-spa/SPAInteraction';
 import { Chart } from 'chart.js';
 import Tilbakemelding from '../objects/Tilbakemelding';
-import TableKomponent from "./Table.vue";
+import TableKomponent from 'ukm-vue-komponenter';
 
 declare var ajaxurl: string; // Kommer fra global
 
