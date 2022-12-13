@@ -1,11 +1,27 @@
 <template>
     <div>
+        <!-- Phantom loading -->
+        <div v-show="loading">
+            <table class="table ukm-vue-table-row">
+                <thead>
+                    <tr>
+                        <th v-for="index in 5" :key="index"><span class="phantom-loading">---------</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                     <tr v-for="index in Math.floor((Math.random() * 15) + 5)" :key="index">
+                        <td v-for="innerIndex in 5" :key="innerIndex"><span class="phantom-loading">-----</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         <div class="removed-keys">
             <button v-for="key in removedKeys" @click="addKey(key)" class="key ukm-botton-style correct-button">
                 <span>{{ key.navn }}</span>
             </button>
         </div>
-        <table class="table ukm-vue-table-row">
+        <table v-show="!loading" class="table ukm-vue-table-row">
             <thead>
                 <tr>
                     <th v-for="key in keys" scope="col">
@@ -45,6 +61,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 export default class TableKomponent extends Vue {
     @Prop() keys!: {navn : string, method : string}[];
     @Prop() values!: any[];
+    @Prop() loading!: boolean;
 
     public removedKeys : {navn : string, method : string}[] = [];
 
