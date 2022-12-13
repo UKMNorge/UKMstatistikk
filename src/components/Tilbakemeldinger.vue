@@ -2,7 +2,7 @@
 <template>
     <div v-if="initialized">
         <div class="col-xs-8">
-           <table-komponent :keys="tableKeys" :values="tilbakemeldinger"></table-komponent>
+           <table-komponent :loading="loading" :keys="tableKeys" :values="tilbakemeldinger"></table-komponent>
         </div>
 
         <div class="col-xs-4">
@@ -26,11 +26,10 @@ declare var ajaxurl: string; // Kommer fra global
 @Component
 export default class TilbakemeldingerKomponent extends Vue implements TabInterface {
     @Prop() name!: string;
-    @Prop() initialEnthusiasm!: number;
 
-
-    enthusiasm = this.initialEnthusiasm;
     public initialized : boolean = false;
+    public loading : boolean = true;
+
     private spaInteraction = new SPAInteraction(null, ajaxurl);
     
     public tilbakemeldinger : Tilbakemelding[] = [];
@@ -41,8 +40,10 @@ export default class TilbakemeldingerKomponent extends Vue implements TabInterfa
     // Opprett nettsiden
     init() : void {
         // Get data via ajax
-        this.initialized = true;
-        this.fetchData();
+        if(!this.initialized) {
+            this.initialized = true;
+            this.fetchData();
+        }
     }
 
     private async fetchData() {
@@ -61,6 +62,7 @@ export default class TilbakemeldingerKomponent extends Vue implements TabInterfa
             this.tableKeys = tb.getKeysForTable();
         }
 
+        this.loading = false;
         this.updateDoughnut();
         return tilbakemeldinger;
     }
@@ -97,10 +99,6 @@ export default class TilbakemeldingerKomponent extends Vue implements TabInterfa
         var responses = await this.spaInteraction.runAjaxCall('/', 'POST', data);
 
         return responses;
-    }
-
-    myMethod() : void {
-        
     }
 }
 </script>
