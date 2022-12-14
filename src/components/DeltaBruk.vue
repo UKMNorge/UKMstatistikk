@@ -4,23 +4,8 @@
         <h4>Generelt</h4>
         <div class="box-statistikk-div">
             <box-statistikk ref="antall-brukere" :loading="loading" :title="'Antall brukere'" :labels="['Ubrukte', 'Brukte']" :subaction="'getTotalBrukereDelta'" :initialEnthusiasm="5" />
-            
-            <div class="box-statistikk">
-                <div class="info">
-                    <p :class="{'phantom-loading' : loading}" class="title">Brukere gjennom Facebook</p>
-                    <h3 :class="{'phantom-loading' : loading}" class="value">--</h3>
-                </div>
-                <div></div>
-            </div>
-
-            <div class="box-statistikk">
-                <div class="info">
-                    <p :class="{'phantom-loading' : loading}" class="title">Bedt om nytt passord</p>
-                    <h3 :class="{'phantom-loading' : loading}" class="value">--</h3>
-                </div>
-                <div></div>
-            </div>
-
+            <box-statistikk-enkel ref="antall-brukere-facebook" :title="'Antall gjennom Facebook'" :subaction="'getTotalBrukereFbDelta'" />
+            <box-statistikk-enkel ref="antall-passord-bedt" :title="'Bedt om nytt passord'" :subaction="'getAntalPass'" />
         </div>
         <h4>Bruk av påmeldingssystemet</h4>
         <div>
@@ -55,6 +40,7 @@ import { SPAInteraction } from 'ukm-spa/SPAInteraction';
 import { Chart } from 'chart.js';
 import DeltaDate from '../objects/DeltaDate';
 import BoxStatistikk from "./BoxStatistikk.vue";
+import BoxStatistikkEnkel from "./BoxStatistikkEnkel.vue";
 
 type TimelineButton = "day" | "week" | "month";
 declare var ajaxurl: string; // Kommer fra global
@@ -70,11 +56,14 @@ export default class DeltaBrukKomponent extends Vue implements TabInterface {
     public loadingChart : boolean = true;
     private spaInteraction = new SPAInteraction(null, ajaxurl);
     public deltaDates : DeltaDate[] = [];
-    public selectedButton : TimelineButton = 'day';
+    public selectedButton : TimelineButton = 'week';
     private chart : any;
     public totalBrukereSelected : number = 0;
 
-    public components = [BoxStatistikk];
+    public components = [
+        BoxStatistikk,
+        BoxStatistikkEnkel
+    ];
 
     // Opprett nettsiden
     init() : void {
