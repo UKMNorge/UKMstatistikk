@@ -35,12 +35,12 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
-import TabInterface from '../interfaces/tabInterface'
+import TabInterface from '../../interfaces/tabInterface'
 import { SPAInteraction } from 'ukm-spa/SPAInteraction';
 import { Chart } from 'chart.js';
-import DeltaDate from '../objects/DeltaDate';
-import BoxStatistikk from "./BoxStatistikk.vue";
-import BoxStatistikkEnkel from "./BoxStatistikkEnkel.vue";
+import DeltaDate from '../../objects/DeltaDate';
+import BoxStatistikk from "../BoxStatistikk.vue";
+import BoxStatistikkEnkel from "../BoxStatistikkEnkel.vue";
 
 type TimelineButton = "day" | "week" | "month";
 declare var ajaxurl: string; // Kommer fra global
