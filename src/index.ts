@@ -1,61 +1,27 @@
-import Vue from "vue";
-import TilbakemeldingerKomponent from "./components/Tilbakemeldinger.vue";
-import DeltaBrukKomponent from "./components/DeltaBruk.vue";
-import { SPAInteraction } from 'ukm-spa/SPAInteraction';
 import { Director } from 'ukm-spa/Director';
+import {openDeltaStats} from './delta';
+import { openArrangorssysStats } from './arrangorssystem';
 
-let v = new Vue({
-    el: "#app",
-    data: { 
-        name: "World",
-        activeTab : 'deltabruk'
-    },
-    
-    components: {
-        TilbakemeldingerKomponent,
-        DeltaBrukKomponent
-    },
+var director = new Director();
+(<any>window).director = director;
 
-    mounted : function() {
-        this.openTab(this.activeTab);
-        console.log(SPAInteraction);
-        console.log(Director);
-    },
+var page = director.getParam('pageSPA');
 
-    methods : {
-        // Open tab
-        openTab: function(tabRef : string) : void {
-            this.activeTab = tabRef;
-            var tilbakemeldinger = (<TilbakemeldingerKomponent>this.$refs[tabRef]);
-            tilbakemeldinger.init();
-        }
-    },
+if(!page) {
+    page = 'pageAppDelta';
+}
 
-    template: /*html*/`
-    <div>    
-        <div>
-            <div class="tab-items">
-                <div class="tab-item">
-                    <button :class="{'active' : activeTab == 'deltabruk'}" @click="openTab('deltabruk');">Bruk</button>
-                </div>
-                <div class="tab-item">
-                    <button :class="{'active' : activeTab == 'tilbakemeldinger'}" @click="openTab('tilbakemeldinger');">Tilbakemeldinger</button>
-                </div>
-            </div>
 
-            
-            <div class="tab-content tabs">
-                <div v-show="activeTab == 'tilbakemeldinger'">
-                    <tilbakemeldinger-komponent ref="tilbakemeldinger" :name="name" :initialEnthusiasm="5" />
-                </div>
+director.addEventListener('openPage', function(obj : any) {
+    if(obj.id == 'pageAppDelta') {
+        openDeltaStats();
+    }
+    else if (obj.id == 'pageAppArrang') {
+        console.log('arrang');
+    }
+})
 
-                <div v-show="activeTab == 'deltabruk'">
-                    <delta-bruk-komponent ref="deltabruk" :name="name" :initialEnthusiasm="5" />
-                </div>
-            </div>
-        </div>
+director.openPage(page);
 
-    </div>
 
-    `
-});
+
