@@ -20,7 +20,7 @@
   "dependencies": {
     "@types/jquery": "^3.5.14",
     "@types/uuid": "^9.0.0",
-    "chart.js": "^2.7.3",
+    "chart.js": "^2.9.4",
     "jquery": "^3.6.1",
     "ukm-spa": "^1.0.9",
     "ukm-vue-komponenter": "^1.0.1",
