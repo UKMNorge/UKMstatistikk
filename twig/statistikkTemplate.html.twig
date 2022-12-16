@@ -7,14 +7,14 @@
         
         <div class="menu-items">
 
-            <button onclick="director.openPage('pageAppDelta')" class="menu-item active">
+            <button onclick="director.openPage('pageAppDelta')" class="menu-item pageAppDelta">
                 <span class="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #fff;transform: ;msFilter:;"><path d="M20 2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-6 2.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM19 15H9v-.25C9 12.901 11.254 11 14 11s5 1.901 5 3.75V15z"></path><path d="M4 8H2v12c0 1.103.897 2 2 2h12v-2H4V8z"></path></svg>
                 </span>
                 <span class="title">Påmeldingssystem</span>
             </button>
 
-             <button onclick="director.openPage('pageAppArrang')" class="menu-item">
+             <button onclick="director.openPage('pageAppArrang')" class="menu-item pageAppArrang">
                 <span class="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: #fff;transform: ;msFilter:;"><path d="M4.626 8.878a7.937 7.937 0 0 1 1.71-2.541 7.92 7.92 0 0 1 2.542-1.71 8.12 8.12 0 0 1 6.13-.041A2.49 2.49 0 0 0 17.5 7C18.886 7 20 5.886 20 4.5S18.886 2 17.5 2c-.689 0-1.312.276-1.763.725-2.431-.973-5.223-.958-7.635.059-1.19.5-2.26 1.22-3.18 2.139A9.98 9.98 0 0 0 2 12h2c0-1.086.211-2.136.626-3.122zm14.747 6.244c-.401.952-.977 1.808-1.71 2.541s-1.589 1.309-2.542 1.71a8.12 8.12 0 0 1-6.13.041A2.488 2.488 0 0 0 6.5 17C5.114 17 4 18.114 4 19.5S5.114 22 6.5 22c.689 0 1.312-.276 1.763-.725A9.973 9.973 0 0 0 12 22a9.983 9.983 0 0 0 9.217-6.102A9.992 9.992 0 0 0 22 12h-2a7.993 7.993 0 0 1-.627 3.122z"></path><path d="M12 7.462c-2.502 0-4.538 2.036-4.538 4.538S9.498 16.538 12 16.538c2.502 0 4.538-2.036 4.538-4.538S14.502 7.462 12 7.462z"></path></svg>
                 </span>
@@ -24,13 +24,20 @@
         </div>
     </div>
 
-    <div id="statistikkContent"  class="col-xs-9 nop">
-        <div id="pageAppDelta">
-
+    <div id="statistikkContent" class="col-xs-9 nop main-container">
+       {# Delta #}
+        <div id="pageAppDelta" class="page" alone="true">
+            <div id="vueDelta">
+                {# Her kommer VUE #}
+            </div>
         </div>
 
-        <div id="pageAppArrang">
+        {# Arrangørssystemet #}
+        <div id="pageAppArrang" class="page" alone="true">
             <h1>Arrang</h1>
+            <div id="vueArrang">
+                {# Her kommer VUE #}
+            </div>
         </div>
     </div>
 

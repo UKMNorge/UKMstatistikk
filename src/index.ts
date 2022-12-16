@@ -7,6 +7,8 @@ var director = new Director();
 
 var page = director.getParam('pageSPA');
 
+console.log(page);
+
 if(!page) {
     page = 'pageAppDelta';
 }
@@ -17,8 +19,13 @@ director.addEventListener('openPage', function(obj : any) {
         openDeltaStats();
     }
     else if (obj.id == 'pageAppArrang') {
-        console.log('arrang');
+        openArrangorssysStats();
     }
+    
+    console.log('aaa');
+    jQuery(".menu-items button.menu-item").removeClass('active');
+    jQuery(".menu-item."+ obj.id).addClass('active');
+    console.log(".menu-item."+ obj.id);
 })
 
 director.openPage(page);

@@ -6,7 +6,7 @@ import { Director } from 'ukm-spa/Director';
 
 export function openDeltaStats() {
     new Vue({
-        el: "#pageAppDelta",
+        el: "#vueDelta",
         data: { 
             name: "World",
             activeTab : 'deltabruk'
