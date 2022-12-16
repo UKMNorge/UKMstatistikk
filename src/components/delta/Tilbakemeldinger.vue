@@ -14,10 +14,10 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
-import TabInterface from '../interfaces/tabInterface';
+import TabInterface from '../../interfaces/tabInterface';
 import { SPAInteraction } from 'ukm-spa/SPAInteraction';
 import { Chart } from 'chart.js';
-import Tilbakemelding from '../objects/Tilbakemelding';
+import Tilbakemelding from '../../objects/Tilbakemelding';
 import TableKomponent from 'ukm-vue-komponenter';
 
 declare var ajaxurl: string; // Kommer fra global
