@@ -6,7 +6,7 @@ import { Director } from 'ukm-spa/Director';
 
 export function openArrangorssysStats() {
     new Vue({
-        el: "#app",
+        el: "#vueArrang",
         data: { 
             name: "World",
             activeTab : 'deltabruk'
