@@ -1,6 +1,6 @@
 import Vue from "vue";
 import TilbakemeldingerKomponent from "./components/delta/Tilbakemeldinger.vue";
-import DeltaBrukKomponent from "./components/delta/DeltaBruk.vue";
+import ArrangementerKomponent from './components/arrangsys/Arrangementer.vue';
 import { SPAInteraction } from 'ukm-spa/SPAInteraction';
 import { Director } from 'ukm-spa/Director';
 
@@ -9,25 +9,25 @@ export function openArrangorssysStats() {
         el: "#vueArrang",
         data: { 
             name: "World",
-            activeTab : 'deltabruk'
+            activeTab : 'arrangementer'
         },
         
         components: {
             TilbakemeldingerKomponent,
-            DeltaBrukKomponent
+            ArrangementerKomponent
         },
     
         mounted : function() {
             this.openTab(this.activeTab);
-            console.log(SPAInteraction);
-            console.log(Director);
+            // console.log(SPAInteraction);
+            // console.log(Director);
         },
     
         methods : {
             // Open tab
             openTab: function(tabRef : string) : void {
                 this.activeTab = tabRef;
-                var tilbakemeldinger = (<TilbakemeldingerKomponent>this.$refs[tabRef]);
+                var tilbakemeldinger = (<ArrangementerKomponent>this.$refs[tabRef]);
                 tilbakemeldinger.init();
             }
         },
@@ -36,9 +36,11 @@ export function openArrangorssysStats() {
         <div>    
             <div>
                 <div class="tab-items">
+
                     <div class="tab-item">
-                        <button :class="{'active' : activeTab == 'deltabruk'}" @click="openTab('deltabruk');">Bruk</button>
+                        <button :class="{'active' : activeTab == 'arrangementer'}" @click="openTab('arrangementer');">Arrangementer</button>
                     </div>
+
                     <div class="tab-item">
                         <button :class="{'active' : activeTab == 'tilbakemeldinger'}" @click="openTab('tilbakemeldinger');">Tilbakemeldinger</button>
                     </div>
@@ -50,8 +52,8 @@ export function openArrangorssysStats() {
                         <tilbakemeldinger-komponent ref="tilbakemeldinger" :name="name" :initialEnthusiasm="5" />
                     </div>
     
-                    <div v-show="activeTab == 'deltabruk'">
-                        <delta-bruk-komponent ref="deltabruk" :name="name" :initialEnthusiasm="5" />
+                    <div v-show="activeTab == 'arrangementer'">
+                        <arrangementer-komponent ref="arrangementer" :name="name" :initialEnthusiasm="5" />
                     </div>
                 </div>
             </div>
