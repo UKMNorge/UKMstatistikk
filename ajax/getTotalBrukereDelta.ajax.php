@@ -23,8 +23,10 @@ $SQL2 = new Query(
 $antall_aldri_brukt = $SQL->run();
 $antall = $SQL2->run();
 
-$retArray['antall_ikke_brukt'] = intval(Query::fetch($antall_aldri_brukt)['antall']);
+$retArray['antall_brukt'] = intval(Query::fetch($antall_aldri_brukt)['antall']);
 $retArray['antall'] = intval(Query::fetch($antall)['antall']);
+$retArray['antall_ikke_brukt'] = $retArray['antall'] - $retArray['antall_brukt'];
+
 
 
 // Returner til klienten
