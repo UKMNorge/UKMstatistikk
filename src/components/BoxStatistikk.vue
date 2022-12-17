@@ -3,7 +3,7 @@
     <div class="box-statistikk">
         <div class="info">
             <p :class="{'phantom-loading' : loading}" class="title">{{ title }}</p>
-            <h3 :class="{'phantom-loading' : loading}" class="value">{{ antallBrukere }}</h3>
+            <h3 :class="{'phantom-loading' : loading}" class="value">{{ antall }}</h3>
         </div>
         <div v-show="!loading" class="chart-div" :class="chartType">
             <canvas :id="chartId" class="box-statstikk-100" style="width: 100px; height: 100px"></canvas>
@@ -32,13 +32,14 @@ export default class BoxStatistikk extends Vue {
     @Prop() subaction! : string;
     @Prop() title! : string;
     @Prop() labels! : string[];
+    @Prop() chartkeys! : string[];
     @Prop() loading! : boolean;
 
     public initialized : boolean = false;
     private spaInteraction = new SPAInteraction(null, ajaxurl);
     public deltaDates : DeltaDate[] = [];
     private chart : any;
-    public antallBrukere : number = 0;
+    public antall : number = 0;
     public chartType = 'doughnut';
     public chartId = uuidv4();
 
@@ -54,14 +55,13 @@ export default class BoxStatistikk extends Vue {
         };
 
         var response = await this.spaInteraction.runAjaxCall('/', 'POST', data);
-        this.antallBrukere = response.antall;
-        this.genererChart(response.antall_ikke_brukt);
+        this.antall = response.antall;
+        this.genererChart([response[this.chartkeys[1]], response[this.chartkeys[0]]]);
         
         return response;
     }
 
-    genererChart(antallIkkeBrukt : number) : void {
-        var antall : number[] = [this.antallBrukere-antallIkkeBrukt, antallIkkeBrukt];
+    genererChart(args : number[]) : void {
         var max = 0;
 
         var barColors = ["#ee6f58", "#60aa96"];
@@ -73,7 +73,7 @@ export default class BoxStatistikk extends Vue {
                 datasets: [{
                     label: 'hide',
                     backgroundColor: barColors,
-                    data: antall,
+                    data: args,
                     lineTension: 0.2,
                     pointRadius: 4,
                     borderWidth: 2
