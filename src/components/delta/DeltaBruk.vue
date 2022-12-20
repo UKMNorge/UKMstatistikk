@@ -3,7 +3,7 @@
     <div v-if="initialized">
         <h4>Generelt</h4>
         <div class="box-statistikk-div">
-            <box-statistikk ref="antall-brukere" :loading="loading" :title="'Antall brukere'" :labels="['Ubrukte', 'Brukte']" :chartkeys="['antall_brukt', 'antall_ikke_brukt']" :subaction="'getTotalBrukereDelta'" />
+            <box-statistikk ref="antall-brukere" :loading="loading" :title="'Antall brukere'" :labels="['Brukte', 'Ubrukte']" :chartkeys="['antall_brukt', 'antall_ikke_brukt']" :subaction="'getTotalBrukereDelta'" />
             <box-statistikk-enkel ref="antall-brukere-facebook" :title="'Antall gjennom Facebook'" :subaction="'getTotalBrukereFbDelta'" />
             <box-statistikk-enkel ref="antall-passord-bedt" :title="'Bedt om nytt passord'" :subaction="'getAntalPass'" />
         </div>
