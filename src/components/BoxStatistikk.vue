@@ -56,7 +56,7 @@ export default class BoxStatistikk extends Vue {
 
         var response = await this.spaInteraction.runAjaxCall('/', 'POST', data);
         this.antall = response.antall;
-        this.genererChart([response[this.chartkeys[1]], response[this.chartkeys[0]]]);
+        this.genererChart([response[this.chartkeys[0]], response[this.chartkeys[1]]]);
         
         return response;
     }
@@ -64,7 +64,7 @@ export default class BoxStatistikk extends Vue {
     genererChart(args : number[]) : void {
         var max = 0;
 
-        var barColors = ["#ee6f58", "#60aa96"];
+        var barColors = ["#60aa96", "#ee6f58"];
 
         this.chart = new Chart(this.chartId, {
             type: this.chartType,
