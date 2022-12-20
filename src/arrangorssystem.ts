@@ -40,10 +40,6 @@ export function openArrangorssysStats() {
                     <div class="tab-item">
                         <button :class="{'active' : activeTab == 'arrangementer'}" @click="openTab('arrangementer');">Arrangementer</button>
                     </div>
-
-                    <div class="tab-item">
-                        <button :class="{'active' : activeTab == 'tilbakemeldinger'}" @click="openTab('tilbakemeldinger');">Tilbakemeldinger</button>
-                    </div>
                 </div>
     
                 
