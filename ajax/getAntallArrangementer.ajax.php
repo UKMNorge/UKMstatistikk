@@ -10,7 +10,7 @@ $retArray = [];
 // Antall per definert år
 $SQL_antall = new Query(
     "SELECT count(pl_id) as antall from smartukm_place",
-    [],
+    []
 );
 $antall = $SQL_antall->run();
 

@@ -9,7 +9,7 @@ $retArray = [];
 
 $SQL = new Query(
     "SELECT season, pl_subtype, count(pl_id) AS antall FROM smartukm_place GROUP BY season, pl_subtype",
-    [],
+    []
 );
 
 $res = $SQL->run();
