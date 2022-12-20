@@ -17,14 +17,14 @@ $antall = $SQL_antall->run();
 // Kommune
 $SQL_antall_kommune = new Query(
     "SELECT count(pl_id) as antall from smartukm_place WHERE pl_type='kommune'",
-    [],
+    []
 );
 $antall_kommune = $SQL_antall_kommune->run();
 
 // Fylke
 $SQL_antall_fylke = new Query(
     "SELECT count(pl_id) as antall from smartukm_place WHERE pl_type='fylke'",
-    [],
+    []
 );
 $antall_fylke = $SQL_antall_fylke->run();
 
