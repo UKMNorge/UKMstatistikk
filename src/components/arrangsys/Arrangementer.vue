@@ -82,7 +82,7 @@ export default class ArrangementerKomponent extends Vue implements TabInterface 
             // Monstring (festival)
             this.festivaler.push(parseInt(res.monstring ? res.monstring.antall : 0));
             // Arrangement (workshop)
-            this.workshoper.push(parseInt(res.arrangement ? res.monstring.antall : 0));
+            this.workshoper.push(parseInt(res.arrangement ? res.arrangement.antall : 0));
         }
 
 
