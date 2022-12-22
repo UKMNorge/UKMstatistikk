@@ -10,7 +10,7 @@
     padding: 15px;
     background: #18181b;
     border-radius: 15px 0px 0px 15px;
-    width: 350px;
+    width: 330px !important;
 }
 #menyLeft * {
     color: #fff;
@@ -53,9 +53,10 @@
 }
 
 #statistikkContent {
-    border: solid 1px #bebebe;
+    border: solid 1px #e8e8e8;
     padding-left: 15px;
     width: 100%;
+    padding-bottom: 50px;
 }
 .ukm-botton-style {
     margin-right: 10px;
