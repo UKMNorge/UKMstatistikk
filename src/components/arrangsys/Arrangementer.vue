@@ -12,7 +12,7 @@
         <h4>Arrangementer gjennom årene</h4>
         <div>
             <div :class="{'phantom-loading' : loadingChart}" class="chart-full-div">
-                <canvas class="box-statistikk" id="deltaBrukereChart" style="width:100%; max-width: 1200px;"></canvas>
+                <canvas class="box-statistikk" id="arrangBrukereChart" style="width:100%; max-width: 1200px;"></canvas>
             </div>
         </div>
     </div>
@@ -111,7 +111,7 @@ export default class ArrangementerKomponent extends Vue implements TabInterface 
             ]
         };
 
-        this.chart = new Chart("deltaBrukereChart", {
+        this.chart = new Chart("arrangBrukereChart", {
             type: 'bar',
             data: data,
             options: {
